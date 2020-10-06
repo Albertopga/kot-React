@@ -4,12 +4,12 @@ const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 
 const cardSchema = schema({
-  image: String,
-  name: String,
-  cost: Number,
-  kind: String,
+  image: { type: String, required: true },
+  name: { type: String, required: true },
+  cost: { type: Number, required: true },
+  kind: { type: String, required: true },
   text: {
-    description: String,
+    description: { type: String, required: true },
     effects: String,
   },
 });
