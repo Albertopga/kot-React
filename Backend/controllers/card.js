@@ -1,11 +1,14 @@
 "use strict";
+const validator = require("validator");
+const card = require("../models/card");
 
-const controller = {
-  prueba: (rew, res) => {
+const cardController = {
+  save: (req, res) => {
+    let params = req.body;
     return res.status(200).send({
-      message: "prueba realizada",
+      message: "saved card",
     });
   },
 };
 
-module.exports = controller;
+module.exports = cardController;
