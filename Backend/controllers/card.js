@@ -17,15 +17,17 @@ const cardController = {
     }
   },
 
-  getCards: (req, res) => {
-    Card.find({}).exec((err, cards) => {
-      if (err) sendResult(res, 404, { message: "Error: " + err });
-      if (cards.length === 0)
-        sendResult(res, 404, { message: "Error: Cards not found" });
-
-      sendResult(res, 200, { message: "Cards returned", cards: cards });
-    });
   },
+
+  getCards: (req, res)=>{
+      Card.find({}).exec((err, cards) =>{
+        if(err) sendResult(res, 404,{ message: "Error: "+err} )
+        if(cards.length === 0) sendResult(res, 404,{ message: "Error: Cards not found"} )
+
+        sendResult(res, 200, { message: "Cards returned", cards: cards} )
+      })
+  },
+
 };
 
 const validateCardInfo = (cardInfo) => {

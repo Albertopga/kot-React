@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // enable CORS to avalable http petitions acceso cruzado entre dominio,
-// permite las peticiones asíncronas a la api desde cualquier Frontend
+// permite las peticiones asíncronas a la api desde cualquier frontend
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
