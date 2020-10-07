@@ -5,7 +5,6 @@ const Card = require("../models/card");
 const cardController = {
   save: (req, res) => {
     let cardInfo = req.body;
-
     try {
       if (validateCardInfo(cardInfo)) {
         let card = createCard(cardInfo);

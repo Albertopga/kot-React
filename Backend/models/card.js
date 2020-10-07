@@ -4,13 +4,13 @@ const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 
 const cardSchema = schema({
-  image: { type: String, required: true },
-  name: { type: String, required: true },
-  cost: { type: Number, required: true },
-  kind: { type: String, required: true },
+  image: { type: String, trim:true, lowercase:true },
+  name: { type: String, required: true, trim:true, lowercase:true },
+  cost: { type: Number, required: true, trim:true },
+  kind: { type: String, enum: ['permanente','descartar'], required: true, trim:true, lowercase:true },
   text: {
-    description: { type: String, required: true },
-    effects: String,
+    description: { type: String, required: true, trim:true, lowercase:true },
+    effects: { type: String, trim:true, lowercase:true }
   },
 });
 
