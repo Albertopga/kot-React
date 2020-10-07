@@ -10,5 +10,6 @@ const md_upload = multipart({ uploadDir: "./upload/cards" });
 
 // routes to use
 router.post("/save", CardController.save);
+router.get("/get", CardController.getCards);
 
 module.exports = router;

@@ -11,12 +11,22 @@ const cardController = {
         let card = createCard(cardInfo);
         saveCard(card, res);
       } else {
-        sendResult(res, 200, { message: "Datos incorrectos" });
+        sendResult(res, 200, { message: "Datos incorrectos" } );
       }
     } catch (err) {
-      sendResult(res, 200, { message: "Faltan datos " });
+      sendResult(res, 200, { message: "Faltan datos " } );
     }
   },
+
+  getCards: (req, res)=>{
+      Card.find({}).exec((err, cards) =>{
+        if(err) sendResult(res, 404,{ message: "Error: "+err} )
+        if(cards.length === 0) sendResult(res, 404,{ message: "Error: Cards not found"} )
+
+        sendResult(res, 200, { message: "Cards returned", cards: cards} )
+      })
+  },
+
 };
 
 const validateCardInfo = (cardInfo) => {
