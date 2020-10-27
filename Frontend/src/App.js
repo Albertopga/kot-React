@@ -1,10 +1,13 @@
-import logo from "./logo.svg";
-import "./App.css";
+import "./Assets/CSS/App.css";
+import Router from "./Routes/Router";
+import { PlayersContextWrapper } from "./Context/PlayersContext";
 
 function App() {
   return (
     <div className="App">
-      <h1>A por el KOT en React</h1>
+      <PlayersContextWrapper>
+        <Router />
+      </PlayersContextWrapper>
     </div>
   );
 }
