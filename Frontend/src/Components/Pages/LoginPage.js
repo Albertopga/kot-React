@@ -15,9 +15,15 @@ const LoginPage = () => {
 
   const handleSubmitNames = (eve) => {
     eve.preventDefault();
-    let inputs = eve.target.children;
+
+    const inputs = eve.target.children;
     const names = [];
-    forIn(inputs, (input) => names.push(input.value));
+
+    forIn(inputs, (elem) => {
+      if (elem.tagName === "INPUT") {
+        names.push(elem.value);
+      }
+    });
     setNamePlayers(names);
   };
 
@@ -48,17 +54,21 @@ const LoginPage = () => {
           {range(numberPlayers).map((i) => (
             <input type={"text"} defaultValue={`Monstruo ${i + 1}`} key={i} />
           ))}
-          <button type="submit">A Jugar</button>
+          <>
+            <button className={"btn"} type="submit">
+              A Jugar
+            </button>
+            <p>
+              Puede asignar un nombre para cada jugador. Por defecto será el que
+              aparece en el campo
+            </p>
+          </>
         </form>
       ) : (
-        "Selecciona numero de jugadores"
+        <p>Selecciona numero de jugadores</p>
       )}
-
-      {namePlayers ? (
-        <Redirect exact to="/game" />
-      ) : (
-        "Puede asignar un nombre para cada jugador. Por defecto será el que aparece en el campo"
-      )}
+      {}
+      {namePlayers && <Redirect exact to="/game" />}
     </section>
   );
 };

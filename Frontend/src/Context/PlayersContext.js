@@ -1,25 +1,24 @@
 import React, { useContext, useState, useMemo } from "react";
 
 const PlayersContext = React.createContext({
-  numPlayers: 0,
+  numberPlayers: 0,
   namePlayers: [],
   setValues: (_objWithNumAndNamePlayers) => {},
 });
 
 export const PlayersContextWrapper = ({ children }) => {
-  const [numPlayers, setNumPlayers] = useState(0);
+  const [numberPlayers, setNumPlayers] = useState(0);
   const [namePlayers, setNamePlayers] = useState([]);
-
   const value = useMemo(
     () => ({
-      numPlayers,
+      numberPlayers,
       namePlayers,
-      setValues: ({ numPlayers, namePlayers }) => {
-        setNumPlayers(numPlayers);
+      setValues: ({ numberPlayers, namePlayers }) => {
+        setNumPlayers(numberPlayers);
         setNamePlayers(namePlayers);
       },
     }),
-    [numPlayers, namePlayers, setNumPlayers, setNamePlayers]
+    [numberPlayers, namePlayers, setNumPlayers, setNamePlayers]
   );
 
   return (

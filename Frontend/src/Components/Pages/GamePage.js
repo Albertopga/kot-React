@@ -1,10 +1,13 @@
 import React from "react";
+import { PlayerBoard } from "../PlayerBoard";
+import { Monsters } from "../Monsters";
 
 const GamePage = () => {
   return (
-    <>
-      <h1>Página de juego</h1>
-    </>
+    <div className={"table"}>
+      <PlayerBoard />
+      <Monsters />
+    </div>
   );
 };
 

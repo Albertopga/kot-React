@@ -1,30 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Assets/css/rest.css">
-    <link rel="stylesheet" href="../Assets/css/styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../Frontend/src/Assets/CSS/reset.css" />
+    <link rel="stylesheet" href="../Frontend/src/Assets/CSS/styles.css" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <section class="start">
-        <form (ngSubmit)="toGame()">
-            <select class="btn" name="numberOfPlayers" [(ngModel)]="numberOfPlayers" ng-init="numberOfPlayers ='0'">
-                <option disabled value="0">Número de jugadores</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-            </select>
+      <form (ngSubmit)="toGame()">
+        <select
+          class="btn"
+          name="numberOfPlayers"
+          [(ngModel)]="numberOfPlayers"
+          ng-init="numberOfPlayers ='0'"
+        >
+          <option disabled value="0">Número de jugadores</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
 
-            <section *ngIf="numberOfPlayers > 0">
-                <button type="submit" class="btn highlight">Jugar</button>
-            </section>
-        </form>
-        <a class="btn" href="https://www.youtube.com/watch?v=VKcXITTE144" target="_blank">Cómo Jugar</a>
+        <section *ngIf="numberOfPlayers > 0">
+          <button type="submit" class="btn highlight">Jugar</button>
+        </section>
+      </form>
+      <a
+        class="btn"
+        href="https://www.youtube.com/watch?v=VKcXITTE144"
+        target="_blank"
+        >Cómo Jugar</a
+      >
     </section>
-</body>
-
+  </body>
 </html>
