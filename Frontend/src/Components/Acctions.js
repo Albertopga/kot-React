@@ -8,7 +8,7 @@ export const Actions = () => {
         <button className="btn">Lanzar</button>
         <button className="btn">Terminar Turno</button>
       </div>
-      <Dices />
+      <Dices numberDices={5} />
     </section>
   );
 };

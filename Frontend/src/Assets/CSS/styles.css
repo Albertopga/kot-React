@@ -135,6 +135,7 @@ a.btn {
   background: var(--color-base-opacity);
   color: white;
   text-shadow: 3px 3px 3px rgb(0, 0, 0);
+  cursor: pointer;
 }
 
 .exit {
@@ -150,6 +151,7 @@ a.btn {
   background: rgba(255, 255, 255, 0.651);
   border: 2px solid rgba(255, 0, 0, 0.651);
   text-shadow: 3px 3px 3px rgb(0, 0, 0);
+  cursor: pointer;
 }
 
 /*Cards*/
@@ -181,6 +183,7 @@ a.btn {
   left: 0;
   z-index: 999;
   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  cursor: zoom-in;
 }
 
 .game {
@@ -322,6 +325,7 @@ a.btn {
   width: 100%;
   min-width: 25px;
   border-radius: 1vh;
+  cursor: pointer;
 }
 
 .selected {
