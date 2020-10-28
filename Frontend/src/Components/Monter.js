@@ -1,9 +1,11 @@
 import React from "react";
 
-export const Monster = () => {
+export const Monster = (props) => {
+  const { name } = props;
+
   return (
     <section className="monster">
-      <p>Active monster</p>
+      <p>{name}</p>
       <div></div>
       <section className="attributes">
         <div className="att heart">

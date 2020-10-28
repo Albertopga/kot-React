@@ -35,7 +35,7 @@ const LoginPage = () => {
           name={"numberOfPlayers"}
           defaultValue={0}
           onChange={(event) => {
-            setNumberPlayers(event.target.value);
+            setNumberPlayers(parseInt(event.target.value));
           }}
         >
           <option disabled value="0">
@@ -67,7 +67,6 @@ const LoginPage = () => {
       ) : (
         <p>Selecciona numero de jugadores</p>
       )}
-      {}
       {namePlayers && <Redirect exact to="/game" />}
     </section>
   );

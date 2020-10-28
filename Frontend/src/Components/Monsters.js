@@ -1,12 +1,16 @@
 import React from "react";
 import { usePlayersContext } from "../Context/PlayersContext";
+import { range } from "lodash";
+import { Monster } from "./Monter";
 
 export const Monsters = () => {
   const { numberPlayers, namePlayers } = usePlayersContext();
-  debugger;
+
   return (
-    <div className="active-monster">
-      {/*TODO:Ha de recibir el número y nombre de los jugadores y por cada uno de ellos crear un componente <Monster>*/}
-    </div>
+    <section className="monsters">
+      {range(numberPlayers).map((index) => {
+        return <Monster key={index} name={namePlayers[index]} />;
+      })}
+    </section>
   );
 };

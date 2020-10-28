@@ -7,8 +7,8 @@ const PlayersContext = React.createContext({
 });
 
 export const PlayersContextWrapper = ({ children }) => {
-  const [numberPlayers, setNumPlayers] = useState(0);
-  const [namePlayers, setNamePlayers] = useState([]);
+  const [numberPlayers, setNumPlayers] = useState(1);
+  const [namePlayers, setNamePlayers] = useState(["Monster proof"]);
   const value = useMemo(
     () => ({
       numberPlayers,
