@@ -39,6 +39,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.12.1",
     "prettier": "^2.1.2"
   }
 }

@@ -6,7 +6,7 @@ import WinnerPage from "../Components/Pages/WinnerPage";
 import { Error } from "../Components/Error";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 
-const Router = () => {
+export const Router = () => {
   return (
     <BrowserRouter>
       <Switch>
@@ -19,5 +19,3 @@ const Router = () => {
     </BrowserRouter>
   );
 };
-
-export default Router;
