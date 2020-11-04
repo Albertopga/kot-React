@@ -3,25 +3,18 @@ import { Dice } from "./Dice";
 import { range, random } from "lodash";
 
 export const Dices = (props) => {
-  let [dices, setDices] = useState(null);
+  const [dices, setDices] = useState(null);
   const { numberDices, rollDices } = props;
 
   const createDicesComponentes = () => {
     let result = [];
-    let diceType;
+    let diceType = "normal";
     range(numberDices).map((number) => {
       if (number >= 6) {
         diceType = "extra";
-      } else {
-        diceType = "normal";
       }
       result.push(
-        <Dice
-          key={number}
-          type={diceType}
-          result={random(0, 5)}
-          roll={"true"}
-        />
+        <Dice key={number} type={diceType} result={random(0, 5)} tirar={roll} />
       );
     });
     return result;
@@ -31,7 +24,7 @@ export const Dices = (props) => {
     setDices(createDicesComponentes());
   }, [numberDices]);
 
-  const roll = () => {};
+  const roll = (elemProps) => {};
 
   return (
     <div className="dices-wrapper">

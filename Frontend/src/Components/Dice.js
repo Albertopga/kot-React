@@ -8,28 +8,35 @@ import { diceFaces, extDiceFaces } from "../Global";
 export const Dice = (props) => {
   const [face, setFace] = useState(0);
   const [roll, setRoll] = useState(true);
-  const { type, result } = props;
+  const { type, result, tirar } = props;
+
   let faces;
 
   useEffect(() => {
+    if (!roll) return;
     if (type === "normal") {
       faces = diceFaces;
     } else {
       faces = extDiceFaces;
     }
     setFace(faces[result]);
+    tirar({ props });
   }, [result, roll]);
 
+  const pasarAlPadre = (eve) => {
+    setRoll(!roll);
+    tirar({ props });
+  };
   if (roll) {
     return (
       <li className={""}>
-        <img src={face} alt="dice" onClick={() => setRoll(!roll)} />
+        <img src={face} alt="dice" onClick={pasarAlPadre} />
       </li>
     );
   } else {
     return (
       <li className={"selected"}>
-        <img src={face} alt="dice" onClick={() => setRoll(!roll)} />
+        <img src={face} alt="dice" onClick={pasarAlPadre} />
       </li>
     );
   }
