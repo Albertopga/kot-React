@@ -1,43 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { diceFaces, extDiceFaces } from "../Global";
+import { random } from "lodash";
 
-// type: ()normal, extra .Indica si es de los seis principales o es uno de los dos extras que se pueden ganar
-// faces []: Indica el número de caras y sus correspondientes imágenes/valores
-// rollState del dado: select, roll
+const getRandom = () => {
+  return random(0, 5);
+};
 
 export const Dice = (props) => {
-  const [face, setFace] = useState(0);
-  const [roll, setRoll] = useState(true);
-  const { type, result, tirar } = props;
-
-  let faces;
+  const { faces } = props;
+  const [resultFace, setResultFace] = useState(0);
+  const [result, setResult] = useState(getRandom);
+  const [selected, setSelected] = useState(false);
 
   useEffect(() => {
-    if (!roll) return;
-    if (type === "normal") {
-      faces = diceFaces;
-    } else {
-      faces = extDiceFaces;
-    }
-    setFace(faces[result]);
-    tirar({ props });
-  }, [result, roll]);
+    setResultFace(faces[result]);
+  }, [result, selected]);
 
-  const pasarAlPadre = (eve) => {
-    setRoll(!roll);
-    tirar({ props });
+  const selectDice = () => {
+    setSelected(!selected);
   };
-  if (roll) {
-    return (
-      <li className={""}>
-        <img src={face} alt="dice" onClick={pasarAlPadre} />
-      </li>
-    );
-  } else {
-    return (
-      <li className={"selected"}>
-        <img src={face} alt="dice" onClick={pasarAlPadre} />
-      </li>
-    );
-  }
+
+  return (
+    <li className={`selected${selected}`}>
+      <img src={resultFace} alt="dice" onClick={selectDice} />
+    </li>
+  );
 };

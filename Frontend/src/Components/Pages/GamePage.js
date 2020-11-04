@@ -5,12 +5,14 @@ import { Actions } from "../Acctions";
 import { Board } from "../Board";
 import { SectionCards } from "../SectionCards";
 import { Link } from "react-router-dom";
+import { Dices } from "../Dices";
 
 const GamePage = () => {
   return (
     <div className={"table"}>
       <PlayerBoard />
       <Actions />
+      <Dices numberDices={6} extraDices={2} />
       <Link to={"/"} className={"btn exit"}>
         Salir
       </Link>

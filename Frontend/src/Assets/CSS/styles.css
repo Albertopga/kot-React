@@ -57,7 +57,7 @@ a.btn {
   grid-template-columns: 3fr 2fr 1fr;
   grid-template-areas:
     "player-board actions     exit"
-    "player-board actions     monsters"
+    "player-board dices     monsters"
     "board        cards-game  monsters"
     "board        resumen     monsters";
 }
@@ -72,7 +72,7 @@ a.btn {
   grid-area: actions;
   display: grid;
   grid-template-columns: 1fr 2fr;
-  grid-template-areas: "buttons dices";
+  grid-template-areas: "buttons buttons";
   margin-left: 4vh;
 }
 .monsters {
@@ -114,7 +114,7 @@ a.btn {
 .buttons {
   grid-area: buttons;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
 }
 .btn {
@@ -328,10 +328,10 @@ a.btn {
   cursor: pointer;
 }
 
-.selected {
+.selectedtrue {
   top: -1vh !important;
 }
-.selected img {
+.selectedtrue img {
   border: 2px solid red;
 }
 

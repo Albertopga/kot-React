@@ -10,8 +10,8 @@ export const Actions = () => {
     <section className="actions">
       <div className="buttons">
         <button className="btn">Terminar Turno</button>
+        <button className="btn">Lanzar</button>
       </div>
-      <Dices numberDices={8} rollDices={dicesRoll} />
     </section>
   );
 };
