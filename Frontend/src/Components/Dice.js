@@ -1,27 +1,42 @@
 import React, { useEffect, useState } from "react";
-import { random } from "lodash";
-
-const getRandom = () => {
-  return random(0, 5);
-};
+import { Die } from "./Die";
+import { range } from "lodash";
+import { diceFaces, extDiceFaces, getRandom } from "../Global";
 
 export const Dice = (props) => {
-  const { faces } = props;
-  const [resultFace, setResultFace] = useState(0);
-  const [result, setResult] = useState(getRandom);
-  const [selected, setSelected] = useState(false);
+  const [dices, setDices] = useState(null);
+  const { numberDices, extraDices } = props;
 
-  useEffect(() => {
-    setResultFace(faces[result]);
-  }, [result, selected]);
-
-  const selectDice = () => {
-    setSelected(!selected);
+  const createDicesComponentes = () => {
+    let diceType = diceFaces;
+    const result = range(numberDices).map((number) => {
+      if (number >= numberDices - extraDices) {
+        diceType = extDiceFaces;
+      }
+      return (
+        <Die
+          key={number}
+          faces={diceType}
+          isSelected={false}
+          result={getRandom()}
+          onClick={click}
+        />
+      );
+    });
+    return result;
   };
 
+  const click = (eve) => {
+    console.log({ eve });
+  };
+  useEffect(() => {
+    setDices(createDicesComponentes());
+  }, [numberDices, extraDices]);
+
   return (
-    <li className={`selected${selected}`}>
-      <img src={resultFace} alt="dice" onClick={selectDice} />
-    </li>
+    <div className="dices-wrapper">
+      <ul className="dices">{dices && dices.map((dice) => dice)}</ul>
+      <button className="btn">Lanzar</button>{" "}
+    </div>
   );
 };

@@ -10,6 +10,7 @@ import extdice3 from "./Assets/Images/dices/extdice3.jpg";
 import extdice4 from "./Assets/Images/dices/extdiceAttack.jpg";
 import extdice5 from "./Assets/Images/dices/extdiceEnergy.jpg";
 import extdice6 from "./Assets/Images/dices/extdiceHealth.jpg";
+import { random } from "lodash";
 
 export const diceFaces = [dice1, dice2, dice3, dice4, dice5, dice6];
 export const extDiceFaces = [
@@ -20,3 +21,7 @@ export const extDiceFaces = [
   extdice5,
   extdice6,
 ];
+
+export const getRandom = () => {
+  return random(0, 5);
+};
