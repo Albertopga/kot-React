@@ -1,27 +1,39 @@
 import { range } from "lodash";
 import { getRandom } from "./Global";
 
-class Roll {
+export class Roll {
   constructor(numberOfDice, numberOfExtraDices, diceRollLimit) {
-    this.numberOfDices = numberOfDice; // between 6 and 8 both includes
-    this.numberOfExtraDices = numberOfExtraDices; // between 0 and 2 both includes
-    this.diceRollLimit = diceRollLimit; // usually three
-    this.numberOfRolls = 0;
-    this.dice = range(0, numberOfDice).map((number) => {
-      return {
-        value: null,
-        isSelected: false,
-      };
-    });
+    if (
+      !isNaN(numberOfDice) &&
+      numberOfDice != null &&
+      !isNaN(numberOfExtraDices) &&
+      numberOfExtraDices != null &&
+      !isNaN(diceRollLimit) &&
+      diceRollLimit != null
+    ) {
+      this.numberOfDices = numberOfDice; // between 6 and 8 both includes
+      this.numberOfExtraDices = numberOfExtraDices; // between 0 and 2 both includes
+      this.diceRollLimit = diceRollLimit; // usually three
+      this.numberOfRolls = 0;
+      this.dice = range(0, this.numberOfDices).map((number) => {
+        return {
+          value: 10,
+          isSelected: false,
+        };
+      });
+    } else {
+      throw "Error in the params";
+    }
   }
 
-  selectDice(index) {
-    if (!this.dice[index].value) return;
+  selectDie(index) {
+    if (index >= this.dice.length) throw "index out of range";
+    if (this.numberOfRolls >= this.diceRollLimit) return; // no se puede seleccionar ni deseleccionar si si he cubierto el cupo de tiradas
 
     this.dice[index].isSelected = !this.dice[index].isSelected;
   }
 
-  rollDie() {
+  rollDice() {
     if (this.numberOfRolls > this.diceRollLimit) return;
 
     this.dice = this.dice.map((die) => {
@@ -34,32 +46,27 @@ class Roll {
     this.numberOfRolls++;
   }
 
-  getDiceValue() {
+  getDiceValueSet() {
     return this.dice.map((dice) => {
       return dice.value;
     });
   }
 
-  getStateDice() {
+  getDieValue(index) {
+    if (index >= this.dice.length) throw "Index out of range";
+
+    return this.dice[index].value;
+  }
+
+  getDiceStateSet() {
     return this.dice.map((dice) => {
-      return dice.isSelected;
+      return { ...dice };
     });
   }
-}
 
-let roll = new Roll(6, 0, 3);
-roll.selectDice(0);
+  getDieState(index) {
+    if (index >= this.dice.length) return;
 
-for (let i = 0; i < 6; i++) {
-  roll.rollDie();
-  if (roll.numberOfRolls <= roll.diceRollLimit) {
-    console.log(roll.getDiceValue());
-  } else {
-    console.log("numero de tiradas excedido");
-    break;
+    return { ...this.dice[index] };
   }
 }
-
-console.log(roll.getStateDice());
-roll.selectDice(0);
-console.log(roll.getStateDice());
