@@ -1,43 +1,42 @@
 import React, { useEffect, useState } from "react";
-import { diceFaces, extDiceFaces } from "../Global";
-
-// type: ()normal, extra .Indica si es de los seis principales o es uno de los dos extras que se pueden ganar
-// faces []: Indica el número de caras y sus correspondientes imágenes/valores
-// rollState del dado: select, roll
+import { Die } from "./Die";
+import { range } from "lodash";
+import { diceFaces, extDiceFaces, getRandom } from "../Global";
 
 export const Dice = (props) => {
-  const [face, setFace] = useState(0);
-  const [roll, setRoll] = useState(true);
-  const { type, result, tirar } = props;
+  const [dices, setDices] = useState(null);
+  const { numberDices, extraDices } = props;
 
-  let faces;
-
-  useEffect(() => {
-    if (!roll) return;
-    if (type === "normal") {
-      faces = diceFaces;
-    } else {
-      faces = extDiceFaces;
-    }
-    setFace(faces[result]);
-    tirar({ props });
-  }, [result, roll]);
-
-  const pasarAlPadre = (eve) => {
-    setRoll(!roll);
-    tirar({ props });
+  const createDicesComponentes = () => {
+    let diceType = diceFaces;
+    const result = range(numberDices).map((number) => {
+      if (number >= numberDices - extraDices) {
+        diceType = extDiceFaces;
+      }
+      return (
+        <Die
+          key={number}
+          faces={diceType}
+          isSelected={false}
+          result={getRandom()}
+          onClick={click}
+        />
+      );
+    });
+    return result;
   };
-  if (roll) {
-    return (
-      <li className={""}>
-        <img src={face} alt="dice" onClick={pasarAlPadre} />
-      </li>
-    );
-  } else {
-    return (
-      <li className={"selected"}>
-        <img src={face} alt="dice" onClick={pasarAlPadre} />
-      </li>
-    );
-  }
+
+  const click = (eve) => {
+    console.log({ eve });
+  };
+  useEffect(() => {
+    setDices(createDicesComponentes());
+  }, [numberDices, extraDices]);
+
+  return (
+    <div className="dices-wrapper">
+      <ul className="dices">{dices && dices.map((dice) => dice)}</ul>
+      <button className="btn">Lanzar</button>{" "}
+    </div>
+  );
 };
