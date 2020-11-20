@@ -3,6 +3,11 @@ import {
   InvalidRollManagerDataError,
   InvalidRollManagerSettingsError,
   InvalidRollManagerStateError,
+  NoRollsLeftError,
+  NumberOfDiceExceeded,
+  NumberOfDiceInsufficient,
+  NumberOfExtraDiceExceeded,
+  NumberOfExtraDiceInsufficient,
   UnknownDieError,
   UnrolledDiceError,
 } from "../errors";
@@ -57,8 +62,11 @@ export function validateSettings(settings) {
   validateSettingsNumber(settings.numberOfDice, "numberOfDice");
   validateSettingsNumber(settings.numberOfExtraDice, "numberOfExtraDice");
   validateSettingsNumber(settings.diceRollLimit, "diceRollLimit");
-
-  // TODO: validate the rest of the settings
+  validateSettingsNumberOfDice(settings.numberOfDice, "numberOfDice");
+  validateSettingsNumberOfExtraDice(
+    settings.numberOfExtraDice,
+    "numberOfExtraDice"
+  );
 }
 
 /**
@@ -80,7 +88,9 @@ export function validateState(state) {
   }
 
   if (!isArrayOfPlainObjects(state.dice)) {
-    throw new InvalidRollManagerStateError(`${name} is not a finite integer`);
+    throw new InvalidRollManagerStateError(
+      `${state.dice} is not a finite integer`
+    );
   }
 
   if (state.numberOfRolls > 0) {
@@ -193,5 +203,41 @@ function validateSettingsNumber(value, name) {
     throw new InvalidRollManagerSettingsError(
       `${name} is not a finite integer`
     );
+  }
+}
+/**
+ * explode if the numberOfExtraDice not is between 6 and 8 both includes
+ * @param {number} value
+ * @param {string} name
+ * */
+function validateSettingsNumberOfDice(value, name) {
+  if (value > 8) {
+    throw new NumberOfDiceExceeded(`${name} more than allowed`);
+  }
+  if (value < 6) {
+    throw new NumberOfDiceInsufficient(`${name} lees than allowed`);
+  }
+}
+/**
+ * explode if the numberOfExtraDice not is between 0 and 2 both includes
+ * @param {number} value
+ * @param {string} name
+ * */
+function validateSettingsNumberOfExtraDice(value, name) {
+  if (value > 2) {
+    throw new NumberOfExtraDiceExceeded(`${name} more than allowed`);
+  }
+  if (value < 0) {
+    throw new NumberOfExtraDiceInsufficient(`${name} lees than allowed`);
+  }
+}
+/**
+ *  explode if the numberOfRolls is more than diceRollLimit
+ *  @param {RollManagerData} data
+ *
+ * */
+export function validateNumberOfRolls(data) {
+  if (data.state.numberOfRolls >= data.settings.diceRollLimit) {
+    throw new NoRollsLeftError(`Dice roll limit exceeded`);
   }
 }

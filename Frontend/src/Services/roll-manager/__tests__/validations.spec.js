@@ -4,7 +4,7 @@ import {
   validateRollManagerData,
   validateSettings,
   validateState,
-} from "./validations";
+} from "../private/validations";
 import {
   DEFAULT_DIE_STATE,
   testValidatesData,
@@ -14,7 +14,7 @@ import {
   testValidatesRolledDie,
   VALID_SETTINGS,
   VALID_STATE_UNROLLED,
-} from "./test-utils";
+} from "../private/test-utils";
 import {
   InvalidRollManagerSettingsError,
   InvalidRollManagerStateError,
@@ -47,13 +47,10 @@ describe("validateRolledDie(data, index)", () => {
 describe("isValidRollManagerData(data)", () => {
   describe("check settings", () => {
     testValidatesSettings((settings) => {
-      const res = isValidRollManagerData({
+      validateRollManagerData({
         settings,
         state: { ...VALID_STATE_UNROLLED },
       });
-      if (!res) {
-        throw new InvalidRollManagerSettingsError("invalid");
-      }
     });
   });
 

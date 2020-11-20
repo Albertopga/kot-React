@@ -4,6 +4,10 @@ import {
   InvalidRollManagerSettingsError,
   InvalidRollManagerStateError,
   UnknownDieError,
+  NumberOfDiceInsufficient,
+  NumberOfDiceExceeded,
+  NumberOfExtraDiceInsufficient,
+  NumberOfExtraDiceExceeded,
 } from "../errors";
 import { buildDieState } from "../creation";
 import { validateDieIndex } from "./validations";
@@ -64,6 +68,31 @@ export const VALID_STATE_ROLLED = {
  */
 export function testValidatesSettings(fn) {
   describe("validates settings", () => {
+    it("fails with the numberOfDice less than 6", () => {
+      const common = {
+        numberOfDice: 5,
+        numberOfExtraDice: 2,
+        diceRollLimit: 3,
+      };
+      expect(() => fn({ ...common })).toThrow(NumberOfDiceInsufficient);
+    });
+    it("fails with the numberOfDice more than 8", () => {
+      const common = {
+        numberOfDice: 9,
+        numberOfExtraDice: 2,
+        diceRollLimit: 3,
+      };
+      expect(() => fn({ ...common })).toThrow(NumberOfDiceExceeded);
+    });
+
+    it("fails with the numberOfExtraDice more than 2", () => {
+      const common = {
+        numberOfDice: 6,
+        numberOfExtraDice: 3,
+        diceRollLimit: 3,
+      };
+      expect(() => fn({ ...common })).toThrow(NumberOfExtraDiceExceeded);
+    });
     it("fails with `InvalidRollManagerSettingsError` passing null", () => {
       expect(() => fn(null)).toThrow(InvalidRollManagerSettingsError);
     });
@@ -94,6 +123,7 @@ export function testValidatesSettings(fn) {
     });
     it("fails with `InvalidRollManagerSettingsError` passing settings.numberOfExtraDice with anything else than a number", () => {
       const common = { numberOfDice: 6, diceRollLimit: 3 };
+
       expect(() => fn({ ...common })).toThrow(InvalidRollManagerSettingsError);
       expect(() => fn({ ...common, numberOfExtraDice: "1" })).toThrow(
         InvalidRollManagerSettingsError
@@ -107,6 +137,7 @@ export function testValidatesSettings(fn) {
     });
     it("fails with `InvalidRollManagerSettingsError` passing settings.diceRollLimit with anything else than a number", () => {
       const common = { numberOfDice: 6, numberOfExtraDice: 3 };
+
       expect(() => fn({ ...common })).toThrow(InvalidRollManagerSettingsError);
       expect(() => fn({ ...common, diceRollLimit: "1" })).toThrow(
         InvalidRollManagerSettingsError
@@ -118,8 +149,6 @@ export function testValidatesSettings(fn) {
         InvalidRollManagerSettingsError
       );
     });
-
-    // TODO "fails with the extra numeric limitations for allowed number of dice, allowed diceRollLimit, etc."
 
     it("does not fail with valid settings", () => {
       expect(() => fn(VALID_SETTINGS)).not.toThrow(

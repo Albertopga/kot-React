@@ -8,6 +8,7 @@ import {
   VALID_SETTINGS,
   VALID_STATE_UNROLLED,
 } from "../private/test-utils";
+
 import { buildRollManagerFresh, buildRollManagerFrom } from "../creation";
 import { isPlainObject } from "lodash";
 import { isValidRollManagerData } from "../queries";

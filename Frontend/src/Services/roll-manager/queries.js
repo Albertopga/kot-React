@@ -9,7 +9,9 @@ import { validateRollManagerData } from "./private/validations";
  */
 export function rollManagerHasRollsLeft(data) {
   validateRollManagerData(data);
-  // TODO implement hasRollsLeft()
+
+  const limit = data.settings.diceRollLimit;
+  return data.state.numberOfRolls < limit;
 }
 
 /**
@@ -21,7 +23,9 @@ export function rollManagerHasRollsLeft(data) {
  */
 export function rollManagerHasResults(data) {
   validateRollManagerData(data);
-  // TODO implement hasResults()
+
+  const limit = data.settings.diceRollLimit;
+  return data.state.numberOfRolls > 0 && data.state.numberOfRolls <= limit;
 }
 
 /**
@@ -36,4 +40,20 @@ export function isValidRollManagerData(data) {
   } catch (_e) {
     return false;
   }
+}
+
+/**
+ * return true if any die is unselected
+ * @param {RollManagerData} data
+ * @return {boolean}
+ * */
+
+export function thereAreAnyUnselectedDie(data) {
+  validateRollManagerData(data);
+
+  for (const die of data.state.dice) {
+    if (!die.isSelected) return true;
+  }
+
+  return false;
 }

@@ -29,4 +29,4 @@ We also have other files with utilities and validations that are to be used only
 
 - [`private/validations.js`](private/validations.js): contains the functions that throw exceptions with invalid state, settings, or data.
 - [`private/typedefs.js`](private/typedefs.js): contains the JSDoc with the type definitions of the different objects (data, state, settings, etc)
-- [`private/test-utils.js`](private/test-utils.js): contains some functions to simplify our test suite regarding valid sate, settings and data, as well as to check that the public functions do the appropriate validations
+- [`private/test-utils.js`](__tests__/test-utils.js): contains some functions to simplify our test suite regarding valid sate, settings and data, as well as to check that the public functions do the appropriate validations

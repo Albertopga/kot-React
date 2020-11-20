@@ -27,3 +27,22 @@ export class UnrolledDiceError extends Error {}
  * error class for when we try to operate on a die that does not exist in the given Roll Manager data.
  */
 export class UnknownDieError extends Error {}
+
+/**
+ * error class for whe the setting numberOfDice is more than the limit.
+ */
+export class NumberOfDiceExceeded extends InvalidRollManagerSettingsError {}
+
+/**
+ * error class for whe the setting numberOfDice is less than the limit.
+ */
+export class NumberOfDiceInsufficient extends InvalidRollManagerSettingsError {}
+/**
+ * error class for whe the setting numberOfExtraDice is more than the limit.
+ */
+export class NumberOfExtraDiceExceeded extends InvalidRollManagerSettingsError {}
+
+/**
+ * error class for whe the setting numberOfExtraDice is less than the limit.
+ */
+export class NumberOfExtraDiceInsufficient extends InvalidRollManagerSettingsError {}

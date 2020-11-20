@@ -6,6 +6,7 @@ import {
   testValidatesDieIndex,
   testValidatesRolledDie,
 } from "../private/test-utils";
+
 import { rollDice, selectDie, toggleDie, unselectDie } from "../actions";
 import { cloneDeep, range, uniq } from "lodash";
 import { NoRollsLeftError } from "../errors";
@@ -93,15 +94,17 @@ describe("selectDie(data, dieIndex)", () => {
   testValidatesRolledDie((data, index) => selectDie(data, index));
 
   it("with a unselected die -> returns a new data object with the same settings and a clone of the state, with that die unselected", () => {
+    /*Creo que algo está falla en la lógica de la prueba.*/
     const state = cloneDeep(VALID_STATE_ROLLED);
     state.dice[0].isSelected = false;
-    const data = { settings: VALID_SETTINGS, state };
+    const data = { settings: VALID_SETTINGS, state }; //configuración inicial
 
     const expectedState = cloneDeep(VALID_STATE_ROLLED);
     expectedState.dice[0].isSelected = true;
-    const expected = { settings: data.settings, state: expectedState };
+    const expected = { settings: data.settings, state: expectedState }; //con el primer dado seleccionado
 
-    const res = selectDie(data, 0);
+    const res = selectDie(data, 0); // tendría que retornar el primer dado cambiado
+
     expect(res).toStrictEqual(expected);
     expect(res).not.toBe(data);
     expect(res.settings).toBe(data.settings);
@@ -206,14 +209,13 @@ describe("rollDice(data)", () => {
       // to test that we are actually rolling the dice, let's run this 10,000 times and check that we don't always get the same number
       const state = cloneDeep(VALID_STATE_ROLLED);
       // all dice selected except the first one
-      state.dice = state.dice.map((d) => ({
-        value: d.value,
+      state.dice = state.dice.map((die) => ({
+        value: die.value,
         isSelected: true,
       }));
       state.dice[0].isSelected = false;
       const data = { settings: VALID_SETTINGS, state };
 
-      const originalValueUnselected = state.dice[0].value;
       const originalValueSelected = state.dice[1].value;
 
       const unselectedValues = [];
