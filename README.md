@@ -46,3 +46,7 @@ crea una clase que se encargue de las tiradas que básicamente tiene que:
 
 cuando lo tengas en js funcionando, vemos como meterlo en react
 #KingOfTokio
+
+## Api cards
+Api to add new cards and/or return all the cards saved in mongodb´s collection.
+

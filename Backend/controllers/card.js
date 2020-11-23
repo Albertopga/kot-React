@@ -10,6 +10,7 @@ const cardController = {
         let card = createCard(cardInfo);
         saveCard(card, res);
       } else {
+
         sendResult(res, 200, { message: "Datos incorrectos" });
       }
     } catch (err) {
@@ -18,6 +19,7 @@ const cardController = {
   },
 
   },
+
 
   getCards: (req, res)=>{
       Card.find({}).exec((err, cards) =>{
