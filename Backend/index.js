@@ -2,6 +2,7 @@
 
 const mongoose = require("mongoose");
 const app = require("./app");
+const routes = require("./routes/card");
 const port = 3901;
 const url = "mongodb://localhost:27017/kot";
 
