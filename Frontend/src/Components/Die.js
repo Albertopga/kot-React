@@ -6,7 +6,7 @@ export const Die = (props) => {
 
   const selectDice = () => {
     setSelected(!selected);
-    onClick(props);
+    onClick(dieIndex);
   };
 
   return (

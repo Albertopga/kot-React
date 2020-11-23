@@ -14,13 +14,6 @@ const GamePage = () => {
   const [diceManager, setDiceManager] = useState(
     buildRollManagerFresh(DEFAULT_ROLL_MANAGER_SETTINGS)
   );
-  console.table(diceManager.state.dice);
-
-  /*DiceManager include: { settings, state: { dice, numberOfRolls: 0 } }
-   * setting include: { numberOfDice: number, numberOfExtraDice: number, diceRollLimit: number }
-   * dice include an die array,
-   * each die include: { value: number, isSelected: boolean }*/
-
   const throwDice = () => {
     setDiceManager(rollDice(diceManager));
   };
@@ -42,3 +35,7 @@ const GamePage = () => {
 };
 
 export default GamePage;
+/*DiceManager include: { settings, state: { dice, numberOfRolls: 0 } }
+ * setting include: { numberOfDice: number, numberOfExtraDice: number, diceRollLimit: number }
+ * dice include an die array,
+ * each die include: { value: number, isSelected: boolean }*/

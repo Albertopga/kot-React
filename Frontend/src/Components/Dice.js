@@ -1,12 +1,12 @@
 import React from "react";
 import { Die } from "./Die";
 import { diceFaces, extDiceFaces } from "../Global";
+import { selectDie } from "../Services/roll-manager/actions";
 
 export const Dice = (props) => {
   const { data } = props;
   const { numberDices, extraDices } = data.settings;
   const { dice } = data.state;
-
   /*DiceManager include: { settings, state: { dice, numberOfRolls: 0 } }
    * setting include: { numberOfDice: number, numberOfExtraDice: number, diceRollLimit: number }
    * dice include an die array,
@@ -14,14 +14,14 @@ export const Dice = (props) => {
 
   const createDicesComponentes = () => {
     let diceType = diceFaces;
-    return dice.map((die, index) => {
+    return dice.map((dieState, index) => {
       if (index >= numberDices - extraDices) {
         diceType = extDiceFaces;
       }
       return (
         <Die
-          value={die.value}
-          isSelected={die.isSelected}
+          value={dieState.value}
+          isSelected={dieState.isSelected}
           key={index}
           dieIndex={index}
           faces={diceType}
@@ -31,8 +31,8 @@ export const Dice = (props) => {
     });
   };
 
-  const click = (eve) => {
-    console.log({ eve });
+  const click = (dieIndex) => {
+    selectDie(data, dieIndex);
   };
 
   return (
