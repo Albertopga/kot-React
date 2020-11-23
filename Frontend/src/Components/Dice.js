@@ -3,7 +3,9 @@ import { Die } from "./Die";
 import { diceFaces, extDiceFaces } from "../Global";
 
 export const Dice = (props) => {
-  const { numberDices, extraDices, dice } = props;
+  const { data } = props;
+  const { numberDices, extraDices } = data.settings;
+  const { dice } = data.state;
 
   /*DiceManager include: { settings, state: { dice, numberOfRolls: 0 } }
    * setting include: { numberOfDice: number, numberOfExtraDice: number, diceRollLimit: number }
@@ -21,6 +23,7 @@ export const Dice = (props) => {
           value={die.value}
           isSelected={die.isSelected}
           key={index}
+          dieIndex={index}
           faces={diceType}
           onClick={click}
         />
@@ -34,7 +37,7 @@ export const Dice = (props) => {
 
   return (
     <div className="dices-wrapper">
-      <ul className="dices">{dice[0].value > 0 && createDicesComponentes()}</ul>
+      <ul className="dices">{createDicesComponentes()}</ul>
     </div>
   );
 };

@@ -14,6 +14,7 @@ const GamePage = () => {
   const [diceManager, setDiceManager] = useState(
     buildRollManagerFresh(DEFAULT_ROLL_MANAGER_SETTINGS)
   );
+  console.table(diceManager.state.dice);
 
   /*DiceManager include: { settings, state: { dice, numberOfRolls: 0 } }
    * setting include: { numberOfDice: number, numberOfExtraDice: number, diceRollLimit: number }
@@ -29,13 +30,7 @@ const GamePage = () => {
     <div className={"table"}>
       <PlayerBoard />
       <Actions throwDice={throwDice} endTurn={endTurn} />
-      {diceManager && (
-        <Dice
-          numberDices={diceManager.settings.numberOfDice}
-          extraDices={diceManager.settings.numberOfExtraDice}
-          dice={diceManager.state.dice}
-        />
-      )}
+      {diceManager.state.numberOfRolls > 0 && <Dice data={diceManager} />}
       <Link to={"/"} className={"btn exit"}>
         Salir
       </Link>
