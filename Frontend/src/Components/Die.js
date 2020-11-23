@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 export const Die = (props) => {
-  const { faces, isSelected, result, onClick } = props;
+  const { value, isSelected, faces, onClick } = props;
   const [selected, setSelected] = useState(isSelected);
 
   const selectDice = () => {
@@ -11,7 +11,7 @@ export const Die = (props) => {
 
   return (
     <li className={`selected${selected}`}>
-      <img src={faces[result]} alt="dice" onClick={selectDice} />
+      <img src={faces[value]} alt="dice" onClick={selectDice} />
     </li>
   );
 };

@@ -1,42 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Die } from "./Die";
-import { range } from "lodash";
-import { diceFaces, extDiceFaces, getRandom } from "../Global";
+import { diceFaces, extDiceFaces } from "../Global";
 
 export const Dice = (props) => {
-  const [dices, setDices] = useState(null);
-  const { numberDices, extraDices } = props;
+  const { numberDices, extraDices, dice } = props;
+
+  /*DiceManager include: { settings, state: { dice, numberOfRolls: 0 } }
+   * setting include: { numberOfDice: number, numberOfExtraDice: number, diceRollLimit: number }
+   * dice include an die array,
+   * each die include: { value: number, isSelected: boolean }*/
 
   const createDicesComponentes = () => {
     let diceType = diceFaces;
-    const result = range(numberDices).map((number) => {
-      if (number >= numberDices - extraDices) {
+    return dice.map((die, index) => {
+      if (index >= numberDices - extraDices) {
         diceType = extDiceFaces;
       }
       return (
         <Die
-          key={number}
+          value={die.value}
+          isSelected={die.isSelected}
+          key={index}
           faces={diceType}
-          isSelected={false}
-          result={getRandom()}
           onClick={click}
         />
       );
     });
-    return result;
   };
 
   const click = (eve) => {
     console.log({ eve });
   };
-  useEffect(() => {
-    setDices(createDicesComponentes());
-  }, [numberDices, extraDices]);
 
   return (
     <div className="dices-wrapper">
-      <ul className="dices">{dices && dices.map((dice) => dice)}</ul>
-      <button className="btn">Lanzar</button>{" "}
+      <ul className="dices">{dice[0].value > 0 && createDicesComponentes()}</ul>
     </div>
   );
 };

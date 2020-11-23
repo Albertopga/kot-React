@@ -11,6 +11,11 @@ import extdice4 from "./Assets/Images/dices/extdiceAttack.jpg";
 import extdice5 from "./Assets/Images/dices/extdiceEnergy.jpg";
 import extdice6 from "./Assets/Images/dices/extdiceHealth.jpg";
 import { random } from "lodash";
+export const DEFAULT_ROLL_MANAGER_SETTINGS = {
+  numberOfDice: 6,
+  numberOfExtraDice: 0,
+  diceRollLimit: 3,
+};
 
 export const diceFaces = [dice1, dice2, dice3, dice4, dice5, dice6];
 export const extDiceFaces = [
@@ -23,5 +28,5 @@ export const extDiceFaces = [
 ];
 
 export const getRandom = () => {
-  return random(0, 5);
+  return random(5);
 };

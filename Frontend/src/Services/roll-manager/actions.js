@@ -4,8 +4,7 @@ import {
   validateRolledDie,
   validateRollManagerData,
 } from "./private/validations";
-import { cloneDeep, random } from "lodash";
-import { NoRollsLeftError } from "./errors";
+import { random } from "lodash";
 import { thereAreAnyUnselectedDie } from "./queries";
 
 /**
@@ -32,15 +31,13 @@ export function toggleDie(data, dieIndex) {
     return die;
   });
 
-  const newData = {
+  return {
     settings: data.settings,
     state: {
       dice: dice,
       numberOfRolls: data.state.numberOfRolls,
     },
   };
-
-  return newData;
 }
 
 /**
@@ -111,15 +108,13 @@ export function unselectDie(data, dieIndex) {
     };
   });
 
-  const newData = {
+  return {
     settings: data.settings,
     state: {
       dice: dice,
       numberOfRolls: data.state.numberOfRolls,
     },
   };
-
-  return newData;
 }
 
 /**

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PlayerBoard } from "../PlayerBoard";
 import { Monsters } from "../Monsters";
 import { Actions } from "../Acctions";
@@ -6,13 +6,36 @@ import { Board } from "../Board";
 import { SectionCards } from "../SectionCards";
 import { Link } from "react-router-dom";
 import { Dice } from "../Dice";
+import { buildRollManagerFresh } from "../../Services/roll-manager/creation";
+import { DEFAULT_ROLL_MANAGER_SETTINGS } from "../../Global";
+import { rollDice } from "../../Services/roll-manager/actions";
 
 const GamePage = () => {
+  const [diceManager, setDiceManager] = useState(
+    buildRollManagerFresh(DEFAULT_ROLL_MANAGER_SETTINGS)
+  );
+
+  /*DiceManager include: { settings, state: { dice, numberOfRolls: 0 } }
+   * setting include: { numberOfDice: number, numberOfExtraDice: number, diceRollLimit: number }
+   * dice include an die array,
+   * each die include: { value: number, isSelected: boolean }*/
+
+  const throwDice = () => {
+    setDiceManager(rollDice(diceManager));
+  };
+  const endTurn = () => {};
+
   return (
     <div className={"table"}>
       <PlayerBoard />
-      <Actions />
-      <Dice numberDices={6} extraDices={2} />
+      <Actions throwDice={throwDice} endTurn={endTurn} />
+      {diceManager && (
+        <Dice
+          numberDices={diceManager.settings.numberOfDice}
+          extraDices={diceManager.settings.numberOfExtraDice}
+          dice={diceManager.state.dice}
+        />
+      )}
       <Link to={"/"} className={"btn exit"}>
         Salir
       </Link>
