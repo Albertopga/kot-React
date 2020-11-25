@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
+import { toggleDie } from "../Services/roll-manager/actions";
 
 export const Die = (props) => {
-  const { value, isSelected, faces, onClick, dieIndex } = props;
-  const [selected, setSelected] = useState(isSelected);
+  const { state, faces, onClick, dieIndex, data } = props;
 
-  const selectDice = () => {
-    setSelected(!selected);
-    onClick(dieIndex);
+  const selectDie = () => {
+    onClick(toggleDie(data, dieIndex));
   };
 
   return (
-    <li className={`selected${selected}`}>
-      <img src={faces[value]} alt="dice" onClick={selectDice} />
+    <li className={`selected${state.isSelected}`}>
+      <img src={faces[state.value]} alt="dice" onClick={selectDie} />
     </li>
   );
 };

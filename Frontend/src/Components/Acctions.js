@@ -1,7 +1,7 @@
 import React from "react";
 
 export const Actions = (props) => {
-  const { throwDice, endTurn } = { ...props };
+  const { throwDice, endTurn } = props;
 
   return (
     <section className="actions">

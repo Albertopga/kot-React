@@ -21,23 +21,8 @@ export function toggleDie(data, dieIndex) {
   validateDieIndex(data, dieIndex);
   validateRolledDie(data, dieIndex);
 
-  const dice = data.state.dice.map((die, i) => {
-    if (dieIndex !== i) return die;
-
-    die = {
-      isSelected: !die.isSelected,
-      value: die.value,
-    };
-    return die;
-  });
-
-  return {
-    settings: data.settings,
-    state: {
-      dice: dice,
-      numberOfRolls: data.state.numberOfRolls,
-    },
-  };
+  if (data.state.dice[dieIndex].isSelected) return unselectDie(data, dieIndex);
+  if (!data.state.dice[dieIndex].isSelected) return selectDie(data, dieIndex);
 }
 
 /**
@@ -67,15 +52,13 @@ export function selectDie(data, dieIndex) {
     };
   });
 
-  const newData = {
+  return {
     settings: data.settings,
     state: {
       dice: dice,
       numberOfRolls: data.state.numberOfRolls,
     },
   };
-
-  return newData;
 }
 
 /**
@@ -139,13 +122,11 @@ export function rollDice(data) {
     };
   });
 
-  const newData = {
+  return {
     settings: data.settings,
     state: {
       dice: dice,
       numberOfRolls: data.state.numberOfRolls + 1,
     },
   };
-
-  return newData;
 }

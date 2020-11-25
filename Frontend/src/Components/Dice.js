@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Die } from "./Die";
 import { diceFaces, extDiceFaces } from "../Global";
-import { selectDie } from "../Services/roll-manager/actions";
 
 export const Dice = (props) => {
   const { data } = props;
-  const { numberDices, extraDices } = data.settings;
-  const { dice } = data.state;
-  /*DiceManager include: { settings, state: { dice, numberOfRolls: 0 } }
-   * setting include: { numberOfDice: number, numberOfExtraDice: number, diceRollLimit: number }
-   * dice include an die array,
-   * each die include: { value: number, isSelected: boolean }*/
+  const [diceData, setDiceData] = useState(data);
+  const { numberDices, extraDices } = diceData.settings;
+  const { dice } = diceData.state;
+
+  useEffect(() => {
+    console.table(data.state.dice);
+    setDiceData(data);
+  }, [data]);
 
   const createDicesComponentes = () => {
     let diceType = diceFaces;
@@ -20,19 +21,19 @@ export const Dice = (props) => {
       }
       return (
         <Die
-          value={dieState.value}
-          isSelected={dieState.isSelected}
+          data={diceData}
+          state={dieState}
           key={index}
           dieIndex={index}
           faces={diceType}
-          onClick={click}
+          onClick={toggleDie}
         />
       );
     });
   };
 
-  const click = (dieIndex) => {
-    selectDie(data, dieIndex);
+  const toggleDie = (dataWithDieChanged) => {
+    setDiceData(dataWithDieChanged);
   };
 
   return (
