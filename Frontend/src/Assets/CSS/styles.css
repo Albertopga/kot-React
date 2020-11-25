@@ -1,0 +1,342 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap");
+
+@font-face {
+  font-family: "GoodGirl";
+  font-style: normal;
+  font-weight: normal;
+  src: url("../fonts/GOODGIRL.TTF") format("ttf");
+}
+:root {
+  --color-base: #8cca45;
+  --color-base-opacity: #91cf406c;
+  --color-base-monster: #c7c7c7;
+}
+
+span,
+a,
+select,
+option,
+button {
+  font-family: "GoodGirl", "Roboto", sans-serif;
+  font-size: 16px;
+}
+
+body {
+  background: url("../Images/table.jpg") no-repeat top;
+  max-height: 100vh;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  text-shadow: 6px 6px 6px rgb(0, 0, 0);
+}
+
+section.start {
+  grid-column: 1;
+  grid-row: 2;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 50px 50px 50px 1fr;
+  gap: 15px;
+}
+
+a.btn {
+  text-decoration: none;
+  padding-top: 10px;
+  display: block;
+  grid-row: 1;
+  margin: 0 auto;
+}
+
+/*layout*/
+.table {
+  display: grid;
+  height: 96vh;
+  margin: 10px;
+  grid-template-rows: 3vw 1fr 3fr;
+  grid-template-columns: 3fr 2fr 1fr;
+  grid-template-areas:
+    "player-board actions     exit"
+    "player-board dices     monsters"
+    "board        cards-game  monsters"
+    "board        resumen     monsters";
+}
+.player-board {
+  grid-area: player-board;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas: "cards-player dices";
+}
+.actions {
+  grid-area: actions;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas: "buttons buttons";
+  margin-left: 4vh;
+}
+.monsters {
+  grid-area: monsters;
+  height: 91vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.board {
+  grid-area: board;
+  background: url("../Images/board.jpg") no-repeat top center;
+  background-size: contain;
+  margin-top: 15px;
+}
+.section-cards {
+  height: calc(96vh / 2);
+  grid-area: cards-game;
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas:
+    "game"
+    "discard";
+  grid-gap: 15px;
+}
+
+/* player-board */
+.active-monster {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  margin-right: 4vh;
+}
+.active-monster .monster {
+  height: 85%;
+}
+
+/* actions */
+.buttons {
+  grid-area: buttons;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.btn {
+  background: white;
+  border: 2px solid #c7c7c7;
+  border-radius: 40px;
+  text-align-last: center;
+  color: black;
+  font-weight: bold;
+  max-width: 450px;
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  margin: 0px 0px 15px;
+}
+.btn:hover {
+  border: 2px solid var(--color-base);
+  background: var(--color-base-opacity);
+  color: white;
+  text-shadow: 3px 3px 3px rgb(0, 0, 0);
+  cursor: pointer;
+}
+
+.exit {
+  width: 50%;
+  margin: 0 auto;
+  color: rgb(255, 255, 255);
+  background: rgba(255, 0, 0, 0.651);
+  border: 2px solid #ff0000;
+  text-shadow: 3px 3px 3px rgb(0, 0, 0);
+}
+.exit:hover {
+  color: rgb(255, 0, 0);
+  background: rgba(255, 255, 255, 0.651);
+  border: 2px solid rgba(255, 0, 0, 0.651);
+  text-shadow: 3px 3px 3px rgb(0, 0, 0);
+  cursor: pointer;
+}
+
+/*Cards*/
+.card {
+  min-height: 100px;
+  margin: 2px;
+  flex: 0 1 15vh;
+  position: relative;
+}
+.card img {
+  width: 15vh;
+  height: 20vh;
+  border-radius: 1vh;
+}
+.cards-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.player-cards {
+  grid-area: cards-player;
+}
+.cards-wrapper:not(.discard) .card img:hover {
+  width: 50vh;
+  height: 61vh;
+  position: absolute;
+  left: 0;
+  z-index: 999;
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
+  cursor: zoom-in;
+}
+
+.game {
+  grid-area: game;
+}
+.discard {
+  grid-area: discard;
+}
+
+/*monsters */
+.monster {
+  background-color: var(--color-base-monster);
+  border-radius: 10px;
+  max-height: 150px;
+  margin: 5px;
+  flex: 1 1 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "avatar name"
+    "avatar stats";
+  place-items: center;
+}
+.monster > p {
+  font-size: 1.2vw;
+  grid-area: name;
+  text-align: center;
+  margin: 5px;
+  overflow: hidden;
+}
+.monster > div {
+  grid-area: avatar;
+  border-radius: 10px;
+  box-sizing: border-box;
+  width: 90%;
+  height: 90%;
+}
+.monster:nth-child(1) > div {
+  background: url("../Images/avatars/1av.jpg") no-repeat top;
+  background-size: cover;
+}
+.monster:nth-child(2) > div {
+  background: url("../Images/avatars/2av.jpg") no-repeat top;
+  background-size: cover;
+}
+.monster:nth-child(3) > div {
+  background: url("../Images/avatars/3av.jpg") no-repeat top;
+  background-size: cover;
+}
+.monster:nth-child(4) > div {
+  background: url("../Images/avatars/4av.jpg") no-repeat top;
+  background-size: cover;
+}
+.monster:nth-child(5) > div {
+  background: url("../Images/avatars/2av.jpg") no-repeat top;
+  background-size: cover;
+}
+.monster:nth-child(6) > div {
+  background: url("../Images/avatars/1av.jpg") no-repeat top;
+  background-size: cover;
+}
+.attributes {
+  grid-area: stats;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  grid-template-areas: "vida victoria energia";
+  width: 100%;
+  height: 100%;
+}
+.att {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  place-items: center;
+}
+.att p {
+  grid-column: 1;
+  grid-row: 2;
+  font-size: 1.2vw;
+}
+.att > div {
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
+  height: 100%;
+}
+.heart {
+  grid-area: vida;
+}
+.heart > div {
+  background: url("../Images/heart.png") no-repeat top;
+  background-size: contain;
+}
+.star {
+  grid-area: victoria;
+}
+.star > div {
+  background: url("../Images/star.png") no-repeat top;
+  background-size: contain;
+}
+.lighting {
+  grid-area: energia;
+}
+.lightning > div {
+  background: url("../Images/energy.png") no-repeat top;
+  background-size: contain;
+}
+
+/*dices*/
+.dices-wrapper {
+  grid-area: dices;
+  min-height: 100px;
+  max-height: calc(100vh / 3);
+  display: grid;
+  place-items: center;
+}
+.dices {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: calc(100vw / 6);
+  width: 100%;
+}
+.dices li {
+  box-sizing: border-box;
+  max-width: 25%;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1vh;
+  position: relative;
+  top: 0;
+  transition: top 0.5s linear 0.2s;
+}
+.dices li > img {
+  width: 100%;
+  min-width: 25px;
+  border-radius: 1vh;
+  cursor: pointer;
+}
+
+.selectedtrue {
+  top: -1vh !important;
+}
+.selectedtrue img {
+  border: 2px solid red;
+}
+
+a.btn {
+  text-decoration: none;
+  display: block;
+  padding-top: 10px;
+}
