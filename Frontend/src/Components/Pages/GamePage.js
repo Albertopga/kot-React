@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { Dice } from "../Dice";
 import { buildRollManagerFresh } from "../../Services/roll-manager/creation";
 import { DEFAULT_ROLL_MANAGER_SETTINGS } from "../../Global";
-import { rollDice } from "../../Services/roll-manager/actions";
+import { rollDice, toggleDie } from "../../Services/roll-manager/actions";
 
 const GamePage = () => {
   const [diceManager, setDiceManager] = useState(
@@ -25,11 +25,22 @@ const GamePage = () => {
   };
   const endTurn = () => {};
 
+  const selectDie = (dieIndexToChange) => {
+    setDiceManager(toggleDie(diceManager, dieIndexToChange));
+  };
+
   return (
     <div className={"table"}>
       <PlayerBoard />
       <Actions throwDice={throwDice} endTurn={endTurn} />
-      {diceManager.state.numberOfRolls > 0 && <Dice data={diceManager} />}
+      {diceManager.state.numberOfRolls > 0 && (
+        <Dice
+          dice={diceManager.state.dice}
+          numberOfDice={diceManager.settings.numberOfDice}
+          numberOfExtraDice={diceManager.settings.numberOfExtraDice}
+          selectDie={selectDie}
+        />
+      )}
       <Link to={"/"} className={"btn exit"}>
         Salir
       </Link>

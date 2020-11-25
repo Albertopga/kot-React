@@ -3,37 +3,30 @@ import { Die } from "./Die";
 import { diceFaces, extDiceFaces } from "../Global";
 
 export const Dice = (props) => {
-  const { data } = props;
-  const [diceData, setDiceData] = useState(data);
-  const { numberDices, extraDices } = diceData.settings;
-  const { dice } = diceData.state;
+  const { dice, numberOfDice, numberOfExtraDice, selectDie } = props;
 
-  useEffect(() => {
-    console.table(data.state.dice);
-    setDiceData(data);
-  }, [data]);
+  useEffect(() => {}, []);
 
   const createDicesComponentes = () => {
     let diceType = diceFaces;
     return dice.map((dieState, index) => {
-      if (index >= numberDices - extraDices) {
+      if (index >= numberOfDice - numberOfExtraDice) {
         diceType = extDiceFaces;
       }
       return (
         <Die
-          data={diceData}
           state={dieState}
           key={index}
           dieIndex={index}
           faces={diceType}
-          onClick={toggleDie}
+          onClick={getIndex}
         />
       );
     });
   };
 
-  const toggleDie = (dataWithDieChanged) => {
-    setDiceData(dataWithDieChanged);
+  const getIndex = (modifiedDieIndex) => {
+    selectDie(modifiedDieIndex);
   };
 
   return (

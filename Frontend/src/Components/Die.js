@@ -2,10 +2,10 @@ import React from "react";
 import { toggleDie } from "../Services/roll-manager/actions";
 
 export const Die = (props) => {
-  const { state, faces, onClick, dieIndex, data } = props;
+  const { state, faces, onClick, dieIndex } = props;
 
   const selectDie = () => {
-    onClick(toggleDie(data, dieIndex));
+    onClick(dieIndex);
   };
 
   return (
